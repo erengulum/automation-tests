@@ -87,6 +87,10 @@ public class SauceLoginTest {
         loginPage.enterUsername("standard_user");
         loginPage.enterPassword("secret_sauce");
         loginPage.clickLoginButton();
+        loginPage.waitForPageToLoad();
+
+        Assertions.assertTrue(driver.getCurrentUrl().contains("inventory.html"));
+
 
     }
 

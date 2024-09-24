@@ -1,15 +1,14 @@
 package pages;
 
+import helpers.WaitHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class LoginPage {
+public class LoginPage extends WaitHelper {
 
     //we first need a webdriver
     private WebDriver driver;
 
-    public LoginPage() {
-    }
 
     // By is locator mechanism to interact with elements. It uses attribute of elements
     private final By usernameField = By.id("user-name");
@@ -26,6 +25,7 @@ public class LoginPage {
 
 
     public LoginPage(WebDriver driver){
+        super(driver);
         this.driver = driver;
     }
 
