@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.LoginPage;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.NavigationPage;
 
 public class SauceLoginTest {
 
@@ -18,6 +19,8 @@ public class SauceLoginTest {
     private WebDriver driver;
 
     private LoginPage loginPage;
+
+    private NavigationPage navigationPage;
 
 
     //Junit 4deki karsiligi da @Before . Her testten once calistirilir
@@ -38,6 +41,8 @@ public class SauceLoginTest {
         driver.get("https://www.saucedemo.com/");
 
         loginPage = new LoginPage(driver);
+        navigationPage = new NavigationPage(driver);
+
 
 
     }
@@ -94,6 +99,22 @@ public class SauceLoginTest {
 
     }
 
+
+    @Test
+    public void testLogout() {
+        // First, log in successfully
+        loginPage.enterUsername("standard_user");
+        loginPage.enterPassword("secret_sauce");
+        loginPage.clickLoginButton();
+        Assertions.assertTrue(driver.getCurrentUrl().contains("inventory.html"));
+
+        // Now log out
+        navigationPage.openMenu();
+        navigationPage.clickLogoutButton();
+
+        // Verify that the user is redirected to the login page after logout
+        Assertions.assertTrue(driver.getCurrentUrl().contains("saucedemo.com"));
+    }
 
 
 
